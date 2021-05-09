@@ -37,15 +37,20 @@ class App extends React.Component {
     this.setState(prevState => ({ contacts: prevState.contacts.filter(el => el.id !== id) }));
   };
 
-  render() {
+  getFilteredContacts = () => {
     const normalizedFilter = this.state.filter.toLowerCase();
-    const filteredContacts = this.state.contacts.filter(el => el.name.toLowerCase().includes(normalizedFilter));
+    return this.state.contacts.filter(el => el.name.toLowerCase().includes(normalizedFilter));
+  };
+
+  render() {
+    const { filter } = this.state;
+    const filteredContacts = this.getFilteredContacts();
     return (
       <>
         <h2 className={styles.headers}>Phonebook</h2>
         <ContactForm addFunc={this.addContact} />
         <h2 className={styles.headers}>Contacts</h2>
-        <Filter value={this.state.filter} filterFunc={this.addFilter} />
+        <Filter value={filter} filterFunc={this.addFilter} />
         <ContactList contacts={filteredContacts} deleteFunc={this.deleteContact} />
       </>
     );
