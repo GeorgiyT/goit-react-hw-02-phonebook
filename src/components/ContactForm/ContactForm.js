@@ -16,32 +16,45 @@ class ContactForm extends React.Component {
     this.setState({ [name]: value });
   };
 
-  addCon = e => {
+  handleSubmit = e => {
     e.preventDefault();
     this.props.addFunc(this.state);
+    this.reset();
+  };
+
+  reset = () => {
+    this.setState({ name: "", number: "" });
   };
 
   render() {
     return (
-      <form onSubmit={this.addCon} className={styles.contactForm}>
-        <p>Name</p>
-        <input
-          type="text"
-          name="name"
-          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
-          required
-          onChange={this.handleChange}
-        />
-        <p>Number</p>
-        <input
-          type="tel"
-          name="number"
-          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-          title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
-          required
-          onChange={this.handleChange}
-        />
+      <form onSubmit={this.handleSubmit} className={styles.contactForm}>
+        <label>
+          Name
+          <input
+            type="text"
+            name="name"
+            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+            title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
+            required
+            value={this.state.name}
+            onChange={this.handleChange}
+          />
+        </label>
+
+        <label>
+          Number
+          <input
+            type="tel"
+            name="number"
+            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+            title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
+            required
+            value={this.state.number}
+            onChange={this.handleChange}
+          />
+        </label>
+
         <button type="submit">Добавить</button>
       </form>
     );
