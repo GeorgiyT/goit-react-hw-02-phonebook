@@ -33,7 +33,6 @@ class App extends React.Component {
   };
 
   deleteContact = id => {
-    console.log(id);
     this.setState(prevState => ({ contacts: prevState.contacts.filter(el => el.id !== id) }));
   };
 
